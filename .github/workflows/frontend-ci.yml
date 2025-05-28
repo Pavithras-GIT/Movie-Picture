@@ -1,0 +1,81 @@
+name: Movie Picture Workflow
+
+# Triggers for the workflow
+on:
+  # Manual trigger using the workflow_dispatch event
+  workflow_dispatch:
+
+  # Automatic trigger on pull request events targeting the main branch
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'starter/frontend/**'
+jobs:
+  lint-and-test:
+    name: Run Lint and Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        task: [lint, test]
+    defaults:
+      run:
+        working-directory: starter/frontend
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Restore npm cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: npm-${{ runner.os }}-${{ hashFiles('starter/frontend/package-lock.json') }}
+          restore-keys: |
+            npm-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Lint or Test
+        run: |
+          if [ "${{ matrix.task }}" == "lint" ]; then
+            npm run lint
+          elif [ "${{ matrix.task }}" == "test" ]; then
+            npm run test
+          fi
+
+  build:
+    name: Build Frontend Image
+    needs: lint-and-test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: starter/frontend
+    steps:
+    
+    - name: Check out repository
+      uses: actions/checkout@v3
+    
+    - name: Use Node.js 18
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+    
+    - name: Restore npm cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: npm-${{ runner.os }}-${{ hashFiles('starter/frontend/package-lock.json') }}
+          restore-keys: |
+            npm-${{ runner.os }}-
+
+    - name: Install dependencies
+        run: npm ci
+
+    - name: Build Docker Image
+      run: docker build -t frontend-app ./starter/frontend
