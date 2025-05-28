@@ -60,6 +60,12 @@ jobs:
 
     - name: Check out repository
       uses: actions/checkout@v3
+
+    - name: Show current working directory
+      run: pwd
+
+    - name: List files in current directory
+      run: ls -la
     
     - name: Use Node.js 18
       uses: actions/setup-node@v3
