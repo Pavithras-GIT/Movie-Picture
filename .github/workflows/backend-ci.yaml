@@ -1,12 +1,8 @@
 name: Movie Picture Workflow
 
-# Triggers for the workflow
-on:
-  # Manual trigger using the workflow_dispatch event
-  workflow_dispatch:
-
-  # Automatic trigger on pull request events targeting the main branch
-  pull_request:
+on: # Triggers for the workflow
+  workflow_dispatch:  # Manual trigger using the workflow_dispatch event
+  pull_request:  # Automatic trigger on pull request events targeting the main branch
     branches:
       - main
     paths:
