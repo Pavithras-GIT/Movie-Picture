@@ -1,4 +1,4 @@
-name: Movie Picture Workflow
+name: Frontend CI Workflow
 
 # Triggers for the workflow
 on:
