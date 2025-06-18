@@ -76,11 +76,11 @@ jobs:
         run: |
           docker build \
             --build-arg REACT_APP_MOVIE_API_URL=${{ secrets.REACT_APP_MOVIE_API_URL }} \
-            -t ${{ secrets.ECR_REGISTRY }}/frontend-repo:latest .
+            -t ${{ secrets.ECR_REGISTRY }}:latest .
       
       - name: Push Docker image
         run: |
-          docker push ${{ secrets.ECR_REGISTRY }}/frontend-repo:latest
+          docker push ${{ secrets.ECR_REGISTRY }}:latest
 
   deploy-to-eks:
     name: Deploy to EKS
