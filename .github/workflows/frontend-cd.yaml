@@ -75,7 +75,7 @@ build:
         run: |
           docker push ${{ secrets.ECR_REGISTRY }}/frontend-app:latest
 
-  deploy-to-eks:
+deploy-to-eks:
     name: Deploy to EKS
     runs-on: ubuntu-latest
     needs: push-to-ecr
