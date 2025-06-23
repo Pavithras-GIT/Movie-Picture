@@ -85,6 +85,9 @@ jobs:
   deploy-to-eks:
     name: Deploy to EKS
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: starter/frontend
     needs: build
     steps:
       - name: Checkout code
