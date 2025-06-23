@@ -101,6 +101,9 @@ jobs:
         run: |
           aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name ${{ secrets.EKS_CLUSTER_NAME }}
 
+      - name: Debug: List files in starter/frontend/k8s
+        run: ls -l starter/frontend/k8s
+
       - name: Deploy to cluster
         env:
           ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
