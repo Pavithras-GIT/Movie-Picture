@@ -111,3 +111,4 @@ jobs:
           ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
         run: |
           envsubst < starter/frontend/k8s/deployment.yaml | kubectl apply -f -
+          envsubst < starter/frontend/k8s/service.yaml | kubectl apply -f -

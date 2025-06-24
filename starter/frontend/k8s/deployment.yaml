@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ${ECR_REGISTRY}/frontend-repo:latest
+          image: ${ECR_REGISTRY}:latest
           ports:
             - containerPort: 3000
