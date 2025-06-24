@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: backend
-          image: ${BACKEND_ECR_REPO}:latest
+          image: ${ECR_REGISTRY}:latest
           ports:
             - containerPort: 5000
